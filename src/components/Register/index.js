@@ -11,14 +11,6 @@ class RegisterPage extends Component {
     errorMsg: '',
   }
 
-  componentDidMount() {
-    const isLoggedIn = Cookies.get('isLoggedIn')
-    if (isLoggedIn) {
-      const {history} = this.props
-      history.replace('/welcom')
-    }
-  }
-
   registerUserDetails = () => {
     const {userName, password} = this.state
 
