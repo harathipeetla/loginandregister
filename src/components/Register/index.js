@@ -11,12 +11,12 @@ class RegisterPage extends Component {
     errorMsg: '',
   }
 
-  onChangeUserName = event => {
-    this.setState({userName: event.target.value})
-  }
-
-  onChangePassword = event => {
-    this.setState({password: event.target.value})
+  componentDidMount() {
+    const isLoggedIn = Cookies.get('isLoggedIn')
+    if (isLoggedIn) {
+      const {history} = this.props
+      history.replace('/welcom')
+    }
   }
 
   registerUserDetails = () => {
@@ -30,8 +30,17 @@ class RegisterPage extends Component {
     } else {
       Cookies.set('username', userName, {expires: 2})
       Cookies.set('password', password, {expires: 2})
-      this.props.history.replace('/login')
+      const {history} = this.props
+      history.replace('/login')
     }
+  }
+
+  onChangeUserName = event => {
+    this.setState({userName: event.target.value})
+  }
+
+  onChangePassword = event => {
+    this.setState({password: event.target.value})
   }
 
   render() {
@@ -39,21 +48,23 @@ class RegisterPage extends Component {
     return (
       <div className="register-page-container">
         <div className="user-name-container">
-          <label>Username:</label>
+          <label htmlFor="name">Username:</label>
           <input
             type="text"
             className="user-name-feild"
             onChange={this.onChangeUserName}
             value={userName}
+            id="name"
           />
         </div>
         <div className="user-password-container">
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             className="password-feild"
             onChange={this.onChangePassword}
             value={password}
+            id="password"
           />
         </div>
         <div className="register-button-container">
