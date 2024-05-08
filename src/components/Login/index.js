@@ -26,7 +26,10 @@ class LoginPage extends Component {
     const existingPassword = Cookies.get('password')
 
     if (existingUserName === userName && existingPassword === password) {
-      this.props.hisory.replace('/welcom')
+      const {history} = this.props
+      history.replace('/welcom')
+    } else if (userName === '' || password === '') {
+      this.setState({errorMsg: 'feilds should not be empty'})
     } else {
       this.setState({errorMsg: 'User does not exists'})
     }
@@ -39,27 +42,29 @@ class LoginPage extends Component {
       <div className="login-page-container">
         <div className="login-with-google-container">
           <div>
-            <button className="google-button">
+            <button className="google-button" type="button">
               Login with google <FcGoogle className="icon-g" />
             </button>
           </div>
         </div>
         <div className="user-name-container">
-          <label>Username:</label>
+          <label htmlFor="name">Username:</label>
           <input
             type="text"
             className="user-name-feild"
             value={userName}
             onChange={this.onChnageUserName}
+            id="name"
           />
         </div>
         <div className="user-password-container">
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
             className="password-feild"
             value={password}
             onChange={this.onChnagePassword}
+            id="password"
           />
         </div>
         <div className="login-button-container">
